@@ -2,6 +2,8 @@
 
 Control center for your Reachy Mini robot - an AI-powered robot assistant.
 
+> **Note:** This application runs on a separate Linux computer on the same network as your Reachy Mini robot, not on the robot itself. It communicates with the robot over your local network.
+
 ## What is Reachy Mini Homebase?
 
 A complete dashboard and phone system for your Reachy Mini robot:
@@ -98,10 +100,14 @@ reachy-mini-homebase/
 
 ## Requirements
 
+### Hardware
+- **Linux computer** (Ubuntu recommended) on the same network as your robot
+- **Reachy Mini** robot (optional - dashboard works without robot for phone features)
+
+### Software & Accounts
 - **Node.js** 18+ (via nvm recommended)
 - **Twilio Account** with phone number
 - **Anthropic API Key** for Claude AI
-- **Reachy Mini** robot (optional, for robot features)
 - **ngrok** account with static domain
 
 ## Quick Start
