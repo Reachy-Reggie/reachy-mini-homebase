@@ -3,6 +3,13 @@
 
 import nodemailer from 'nodemailer';
 import { CONFIG, isEmailConfigured } from '../config.js';
+import { memoryStore } from './memoryStore.js';
+
+// Get the robot's name from personality settings
+function getRobotName(): string {
+  const personality = memoryStore.getPersonality();
+  return personality.name || 'your robot assistant';
+}
 
 type EmailPayload = {
   subject: string;
@@ -79,9 +86,10 @@ export async function sendVoicemailEmail(params: {
   receivedAt?: string;
 }): Promise<{ ok: boolean; skipped?: boolean; error?: string }> {
   const receivedAt = params.receivedAt || new Date().toISOString();
-  const subject = `Reggie voicemail from ${params.fromNumber}`;
+  const robotName = getRobotName();
+  const subject = `${robotName} voicemail from ${params.fromNumber}`;
   const text = [
-    `New voicemail received by Reggie.`,
+    `New voicemail received by ${robotName}.`,
     '',
     `From: ${params.fromNumber}`,
     `CallSid: ${params.callSid}`,

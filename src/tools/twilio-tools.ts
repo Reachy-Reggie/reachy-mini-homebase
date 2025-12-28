@@ -11,7 +11,7 @@ import type { ToolResult } from './robot-tools';
 export const twilioTools: Anthropic.Tool[] = [
   {
     name: 'send_sms',
-    description: 'Send an SMS text message to a phone number. Use this when asked to text someone, send a message, or respond to a text. The message will be sent from Reggie\'s phone number.',
+    description: 'Send an SMS text message to a phone number. Use this when asked to text someone, send a message, or respond to a text.',
     input_schema: {
       type: 'object' as const,
       properties: {
@@ -52,7 +52,7 @@ export const twilioTools: Anthropic.Tool[] = [
   },
   {
     name: 'get_message_history',
-    description: 'Get recent SMS messages sent or received by Reggie. Use this to check message history or see what messages have been exchanged with a specific number.',
+    description: 'Get recent SMS messages sent or received. Use this to check message history or see what messages have been exchanged with a specific number.',
     input_schema: {
       type: 'object' as const,
       properties: {
@@ -70,7 +70,7 @@ export const twilioTools: Anthropic.Tool[] = [
   },
   {
     name: 'get_phone_info',
-    description: 'Get information about Reggie\'s phone capabilities and phone number. Use this when asked about Reggie\'s phone number or communication capabilities.',
+    description: 'Get information about the robot\'s phone capabilities and phone number.',
     input_schema: {
       type: 'object' as const,
       properties: {},
@@ -222,7 +222,7 @@ export async function executeTwilioTool(
 
         return {
           type: 'text',
-          text: `Reggie's Phone Capabilities:
+          text: `Phone Capabilities:
 - Phone Number: ${phoneNumber}
 - SMS: Enabled (send and receive text messages)
 - Voice: Enabled (make and receive calls)

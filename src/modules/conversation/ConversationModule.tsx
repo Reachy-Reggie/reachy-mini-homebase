@@ -1,4 +1,4 @@
-// Conversation Module - Main chat interface with Reggie
+// Conversation Module - Main chat interface with the robot
 import { useState, useRef, useEffect } from 'react';
 import { useConversationStore, useIsApiKeySet } from '../../stores/conversationStore';
 import { ChatMessage } from './ChatMessage';
@@ -43,7 +43,7 @@ export function ConversationModule() {
         <div className="text-6xl mb-6">🔑</div>
         <h2 className="text-2xl font-semibold text-white mb-3">API Key Required</h2>
         <p className="text-center max-w-md mb-6">
-          To chat with Reggie, you need to set up your Anthropic API key.
+          To chat with your robot, you need to set up your Anthropic API key.
           Add it to your <code className="px-2 py-1 bg-gray-800 rounded text-green-400">.env</code> file
           or configure it in Settings.
         </p>
@@ -66,11 +66,11 @@ export function ConversationModule() {
           <div className="flex items-center gap-3">
             <img
               src="/favicon.png"
-              alt="Reggie"
+              alt="Robot"
               className="w-10 h-10 rounded-full object-cover"
             />
             <div>
-              <h2 className="text-lg font-semibold text-white">Chat with Reggie</h2>
+              <h2 className="text-lg font-semibold text-white">Chat</h2>
               <p className="text-sm text-gray-400">Powered by Claude</p>
             </div>
           </div>
@@ -101,7 +101,7 @@ export function ConversationModule() {
             <div className="flex flex-col items-center justify-center h-full text-gray-500">
               <div className="text-7xl mb-4 animate-wiggle">👋</div>
               <h3 className="text-2xl font-semibold text-white mb-2">
-                Hello! I'm Reggie!
+                Hello! How can I help you?
               </h3>
               <p className="text-center max-w-md text-gray-400">
                 I'm your friendly Reachy Mini robot. Ask me to move, dance, express
@@ -131,7 +131,7 @@ export function ConversationModule() {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type a message to Reggie..."
+              placeholder="Type a message..."
               className="flex-1 px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               disabled={isLoading}
             />

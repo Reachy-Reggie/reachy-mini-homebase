@@ -13,9 +13,17 @@ import { sendVoicemailEmail } from '../services/emailService.js';
 const router = Router();
 const { VoiceResponse } = twilio.twiml;
 
-const VOICEMAIL_GREETING_TEXT =
-  'Hey there! You have reached Reggie. Leave a message after the beep and I will get back to you soon. ' +
-  'Press any key when you are done.';
+// Get the robot's name from personality settings
+function getRobotName(): string {
+  const personality = memoryStore.getPersonality();
+  return personality.name || 'your robot assistant';
+}
+
+// Generate greeting text with dynamic name
+function getVoicemailGreetingText(): string {
+  const name = getRobotName();
+  return `Hey there! You have reached ${name}. Leave a message after the beep and I will get back to you soon. Press any key when you are done.`;
+}
 const VOICEMAIL_GREETING_TTL_MS = 6 * 60 * 60 * 1000;
 
 let cachedGreeting:
@@ -24,6 +32,7 @@ let cachedGreeting:
 let greetingPromise: Promise<Buffer | null> | null = null;
 
 async function fetchVoicemailGreeting(voiceId: string): Promise<Buffer> {
+  const greetingText = getVoicemailGreetingText();
   const response = await fetch(
     `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
     {
@@ -33,7 +42,7 @@ async function fetchVoicemailGreeting(voiceId: string): Promise<Buffer> {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        text: VOICEMAIL_GREETING_TEXT,
+        text: greetingText,
         model_id: 'eleven_monolingual_v1',
         voice_settings: {
           stability: 0.5,
@@ -276,7 +285,7 @@ router.post(
 
       twiml.say(
         { voice: 'alice' },
-        'Hey! This is Reggie. Leave me a message and I will respond via text. ' +
+        `Hey! This is ${getRobotName()}. Leave me a message and I will respond via text. ` +
           'Press any key when done.'
       );
 
@@ -335,7 +344,7 @@ router.post(
         // Fallback - simple voicemail with Twilio voice
         twiml.say(
           { voice: 'alice' },
-          'Hey there! You have reached Reggie. Please leave a message after the beep.'
+          `Hey there! You have reached ${getRobotName()}. Please leave a message after the beep.`
         );
         twiml.record({
           maxLength: 60,
@@ -432,7 +441,7 @@ router.post(
         await client.messages.create({
           to: From,
           from: CONFIG.twilio.phoneNumber,
-          body: `Reggie here! Re your voicemail: ${result.response}`,
+          body: `${getRobotName()} here! Re your voicemail: ${result.response}`,
         });
 
         console.log(`[Voice] SMS response sent to ${From}`);
@@ -478,7 +487,7 @@ router.post(
   }
 );
 
-// Handle guest transcription - store for Reggie but don't auto-respond
+// Handle guest transcription - store for owner but don't auto-respond
 router.post(
   '/transcription-guest',
   validateTwilioRequest,
@@ -494,7 +503,7 @@ router.post(
       // Get or create contact
       const contact = memoryStore.getOrCreateContact('voice', From);
 
-      // Store the voicemail in memory for Reggie to review
+      // Store the voicemail in memory for owner to review
       memoryStore.addConversation({
         contactId: contact.id,
         channel: 'voice',
@@ -506,7 +515,7 @@ router.post(
 
       console.log(`[Voice] Guest voicemail stored for contact ${contact.id}`);
 
-      // Email the transcription to Reggie (if configured)
+      // Email the transcription to owner (if configured)
       await sendVoicemailEmail({
         fromNumber: From,
         transcription: TranscriptionText,
@@ -557,7 +566,7 @@ router.post(
     const twiml = new VoiceResponse();
     twiml.say(
       { voice: 'alice' },
-      'Reggie is experiencing technical difficulties. Please try again later.'
+      `${getRobotName()} is experiencing technical difficulties. Please try again later.`
     );
     twiml.hangup();
 

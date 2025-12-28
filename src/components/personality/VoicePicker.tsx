@@ -1,5 +1,5 @@
 // VoicePicker Component
-// Allows selecting an ElevenLabs voice for Reggie
+// Allows selecting an ElevenLabs voice for the robot
 
 import { useState, useEffect, useRef } from 'react';
 import { memoryApi } from '../../services/memoryApi';
@@ -63,7 +63,7 @@ export function VoicePicker({ selectedVoiceId, selectedVoiceName, onChange }: Vo
         await audio.play();
       } else {
         // Generate TTS preview
-        const blob = await memoryApi.generateTts('Hello! I am Reggie, your friendly robot assistant.', voice.voiceId);
+        const blob = await memoryApi.generateTts('Hello! I am your friendly robot assistant.', voice.voiceId);
         const url = URL.createObjectURL(blob);
         const audio = new Audio(url);
         audioRef.current = audio;
@@ -109,7 +109,7 @@ export function VoicePicker({ selectedVoiceId, selectedVoiceName, onChange }: Vo
     setPlayingVoiceId(manualVoiceId);
 
     try {
-      const blob = await memoryApi.generateTts('Hello! I am Reggie, your friendly robot assistant.', manualVoiceId.trim());
+      const blob = await memoryApi.generateTts('Hello! I am your friendly robot assistant.', manualVoiceId.trim());
       const url = URL.createObjectURL(blob);
       const audio = new Audio(url);
       audioRef.current = audio;
@@ -357,7 +357,7 @@ export function VoicePicker({ selectedVoiceId, selectedVoiceName, onChange }: Vo
       )}
 
       <p className="text-xs text-gray-500">
-        Select a voice for Reggie to use across all channels
+        Select a voice for your robot to use across all channels
       </p>
     </div>
   );

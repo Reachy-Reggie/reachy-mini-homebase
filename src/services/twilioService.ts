@@ -161,7 +161,7 @@ class TwilioService {
         twiml = `<Response><Say voice="${voice}">${escapedMessage}</Say></Response>`;
       } else {
         // Default greeting
-        twiml = `<Response><Say voice="alice">Hello! This is Reggie, your friendly robot assistant. How can I help you today?</Say></Response>`;
+        twiml = `<Response><Say voice="alice">Hello! I am your friendly robot assistant. How can I help you today?</Say></Response>`;
       }
 
       formData.append('Twiml', twiml);

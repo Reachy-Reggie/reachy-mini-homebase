@@ -1,5 +1,5 @@
 // Personality Editor Component
-// Allows editing Reggie's personality traits and system prompt
+// Allows editing the robot's personality traits and system prompt
 
 import { useState, useEffect } from 'react';
 import { TagInput } from '../common/TagInput';
@@ -129,7 +129,7 @@ export function PersonalityEditor() {
           value={personality.name}
           onChange={(e) => updateField('name', e.target.value)}
           className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-reachy-500 focus:ring-1 focus:ring-reachy-500"
-          placeholder="Reggie"
+          placeholder="Your robot's name"
         />
       </div>
 
@@ -149,7 +149,7 @@ export function PersonalityEditor() {
           onChange={(e) => updateField('communicationStyle', e.target.value)}
           rows={2}
           className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-reachy-500 focus:ring-1 focus:ring-reachy-500 resize-none"
-          placeholder="Describe how Reggie communicates..."
+          placeholder="Describe how your robot communicates..."
         />
       </div>
 
@@ -209,7 +209,7 @@ export function PersonalityEditor() {
         <div className="flex items-center justify-between">
           <div>
             <label className="text-sm font-medium text-gray-300">Enable Text-to-Speech</label>
-            <p className="text-xs text-gray-500">Reggie will speak responses aloud</p>
+            <p className="text-xs text-gray-500">Your robot will speak responses aloud</p>
           </div>
           <button
             type="button"
@@ -250,10 +250,10 @@ export function PersonalityEditor() {
           onChange={(e) => updateField('systemPromptBase', e.target.value)}
           rows={8}
           className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-reachy-500 focus:ring-1 focus:ring-reachy-500 resize-y font-mono text-sm"
-          placeholder="Base system prompt for Reggie's AI..."
+          placeholder="Base system prompt for your robot's AI..."
         />
         <p className="text-xs text-gray-500">
-          This is the foundation of Reggie&apos;s personality prompt. It&apos;s combined with traits, boundaries, and context.
+          This is the foundation of your robot&apos;s personality prompt. It&apos;s combined with traits, boundaries, and context.
         </p>
       </div>
 

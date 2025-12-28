@@ -1,6 +1,6 @@
-// Reggie Homebase - Main App Component
+// Reachy Mini Homebase - Main App Component
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -17,8 +17,12 @@ import { Telemetry } from './pages/Telemetry';
 import { Settings } from './pages/Settings';
 import { Memory } from './pages/Memory';
 
+// Components
+import { FirstRunSetup } from './components/setup/FirstRunSetup';
+
 // Services and stores
 import { daemonApi } from './services/daemonApi';
+import { memoryApi } from './services/memoryApi';
 import { useRobotStore } from './stores/robotStore';
 
 // Create React Query client
@@ -59,21 +63,61 @@ function AppContent() {
   // Initialize daemon status on app load
   useDaemonStatusInit();
 
+  // First-run setup state
+  const [showSetup, setShowSetup] = useState(false);
+  const [checkingSetup, setCheckingSetup] = useState(true);
+
+  // Check if first-run setup is needed (personality name is empty)
+  useEffect(() => {
+    const checkFirstRun = async () => {
+      try {
+        const personality = await memoryApi.getPersonality();
+        // Show setup if name is empty or undefined
+        if (!personality.name || personality.name.trim() === '') {
+          setShowSetup(true);
+        }
+      } catch (err) {
+        // If we can't reach the server, don't block the app
+        console.error('Could not check personality:', err);
+      } finally {
+        setCheckingSetup(false);
+      }
+    };
+
+    checkFirstRun();
+  }, []);
+
+  const handleSetupComplete = () => {
+    setShowSetup(false);
+  };
+
+  // Show loading while checking (brief flash is fine)
+  if (checkingSetup) {
+    return (
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-gray-400">Loading...</div>
+      </div>
+    );
+  }
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<Chat />} />
-          <Route path="camera" element={<Camera />} />
-          <Route path="control" element={<Dashboard />} />
-          <Route path="applications" element={<Applications />} />
-          <Route path="display" element={<Display />} />
-          <Route path="telemetry" element={<Telemetry />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="memory" element={<Memory />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      {showSetup && <FirstRunSetup onComplete={handleSetupComplete} />}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Chat />} />
+            <Route path="camera" element={<Camera />} />
+            <Route path="control" element={<Dashboard />} />
+            <Route path="applications" element={<Applications />} />
+            <Route path="display" element={<Display />} />
+            <Route path="telemetry" element={<Telemetry />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="memory" element={<Memory />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

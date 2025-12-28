@@ -23,7 +23,7 @@ export function ApiKeyInput() {
             Connect to Claude
           </h2>
           <p className="text-gray-400">
-            To chat with Reggie, you'll need to provide your Anthropic API key.
+            To chat with your robot, you'll need to provide your Anthropic API key.
             This is stored locally in your browser.
           </p>
         </div>

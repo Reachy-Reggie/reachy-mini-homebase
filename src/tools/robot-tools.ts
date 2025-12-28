@@ -1,5 +1,5 @@
 // Robot Tools for Claude
-// Defines tools that Claude can use to control Reggie
+// Defines tools that Claude can use to control the robot
 
 import type Anthropic from '@anthropic-ai/sdk';
 import { api } from '../services/api';
@@ -19,7 +19,7 @@ export interface ToolResult {
 export const robotTools: Anthropic.Tool[] = [
   {
     name: 'robot_wake_up',
-    description: 'Wake up the robot. This makes Reggie come alive with a wake-up animation and sound.',
+    description: 'Wake up the robot with a wake-up animation and sound.',
     input_schema: {
       type: 'object' as const,
       properties: {},
@@ -28,7 +28,7 @@ export const robotTools: Anthropic.Tool[] = [
   },
   {
     name: 'robot_sleep',
-    description: 'Put the robot to sleep. Reggie will do a sleep animation and rest.',
+    description: 'Put the robot to sleep with a sleep animation.',
     input_schema: {
       type: 'object' as const,
       properties: {},

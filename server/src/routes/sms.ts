@@ -6,6 +6,13 @@ import twilio from 'twilio';
 import { processIncomingMessage } from '../services/claudeProcessor.js';
 import { CONFIG } from '../config.js';
 import { auditLog } from '../services/auditLog.js';
+import { memoryStore } from '../services/memoryStore.js';
+
+// Get the robot's name from personality settings
+function getRobotName(): string {
+  const personality = memoryStore.getPersonality();
+  return personality.name || 'your robot assistant';
+}
 
 // Check if sender is the owner
 function isOwner(from: string): boolean {
@@ -119,7 +126,7 @@ router.post(
 
       // Send error response
       twiml.message(
-        "I'm having a robot moment! Please try again in a bit. - Reggie"
+        `I'm having a robot moment! Please try again in a bit. - ${getRobotName()}`
       );
     }
 
@@ -154,7 +161,7 @@ router.post(
     console.error('[SMS Fallback] Triggered - check primary webhook');
 
     const twiml = new MessagingResponse();
-    twiml.message('Reggie is experiencing technical difficulties. Please try again later.');
+    twiml.message(`${getRobotName()} is experiencing technical difficulties. Please try again later.`);
 
     res.type('text/xml');
     res.send(twiml.toString());

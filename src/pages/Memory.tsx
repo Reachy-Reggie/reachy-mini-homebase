@@ -1,5 +1,5 @@
-// Personality Page - Edit Reggie's personality
-// Controls how Reggie behaves across all interaction modes (SMS, voice, chat)
+// Personality Page - Edit your robot's personality
+// Controls how your robot behaves across all interaction modes (SMS, voice, chat)
 
 import { PersonalityEditor } from '../components/personality/PersonalityEditor';
 
@@ -10,7 +10,7 @@ export function Memory() {
         {/* Header */}
         <div>
           <h1 className="text-2xl font-bold text-white">Personality</h1>
-          <p className="text-gray-400">Define who Reggie is across all channels</p>
+          <p className="text-gray-400">Define your robot's personality across all channels</p>
         </div>
 
         {/* Personality Editor */}

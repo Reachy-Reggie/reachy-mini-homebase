@@ -156,7 +156,7 @@ class TTSService {
     // Stop any current playback
     this.stop();
 
-    const previewText = text || 'Hello! I am Reggie, your friendly robot assistant.';
+    const previewText = text || 'Hello! I am your friendly robot assistant.';
 
     try {
       this._isSpeaking = true;

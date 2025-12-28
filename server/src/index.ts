@@ -1,4 +1,4 @@
-// Reggie Twilio Webhook Server
+// Reachy Mini Twilio Webhook Server
 // Handles incoming SMS and voice calls from Twilio
 
 import express from 'express';
@@ -136,7 +136,7 @@ const server = createServer(app);
 server.listen(CONFIG.port, () => {
   console.log('');
   console.log('=========================================');
-  console.log('  Reggie Twilio Webhook Server');
+  console.log('  Reachy Mini Webhook Server');
   console.log('=========================================');
   console.log('');
   console.log(`  Port:        ${CONFIG.port}`);

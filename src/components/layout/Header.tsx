@@ -23,13 +23,13 @@ export function Header() {
             <div className="relative">
               <img
                 src="/favicon.png"
-                alt="Reggie"
+                alt="Reachy Mini"
                 className="w-10 h-10 rounded-xl object-cover transition-transform duration-200 group-hover:scale-110"
               />
               <div className="absolute inset-0 rounded-xl bg-reachy-500/0 group-hover:bg-reachy-500/20 transition-colors duration-200" />
             </div>
             <span className="font-bold text-lg text-white tracking-tight">
-              Reggie Homebase
+              Reachy Mini Homebase
             </span>
           </div>
 
