@@ -1,13 +1,13 @@
-# Reggie Homebase
+# Reachy Mini Homebase
 
-Control center for Reggie - an AI-powered robot assistant built on the Reachy Mini platform.
+Control center for your Reachy Mini robot - an AI-powered robot assistant.
 
-## What is Reggie?
+## What is Reachy Mini Homebase?
 
-Reggie is a personal AI assistant that can:
-- **Respond to SMS** - Text Reggie's phone number and get AI-powered responses
-- **Handle voice calls** - Leave voicemails that get transcribed and answered
-- **Control a robot body** - Reachy Mini with camera, head movements, and antennas
+A complete dashboard and phone system for your Reachy Mini robot:
+- **Respond to SMS** - Text your robot's phone number and get AI-powered responses
+- **Handle voice calls** - Real-time AI conversations for owner, voicemail for others
+- **Control the robot body** - Camera, head movements, and antenna controls
 - **Run 24/7** - Always-on services with auto-recovery
 
 ## Quick Links
@@ -28,7 +28,7 @@ Reggie is a personal AI assistant that can:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         REGGIE HOMEBASE                          │
+│                      REACHY MINI HOMEBASE                        │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
 │  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐      │
@@ -55,8 +55,8 @@ Reggie is a personal AI assistant that can:
 
 ### Communication
 - **SMS Gateway** - Receive and respond to text messages via Twilio
-- **Voice Calls** - Owner gets interactive mode; others get voicemail
-- **AI Responses** - Claude AI generates contextual responses
+- **Voice Calls** - Owner gets real-time AI conversation; others get voicemail
+- **AI Responses** - Claude AI generates contextual responses with your robot's personality
 
 ### Security
 - **Owner-Only Access** - Only configured phone number can interact
@@ -68,6 +68,11 @@ Reggie is a personal AI assistant that can:
 - **Motion Controls** - Head, body, and antenna movements
 - **Auto-Recovery** - Camera and daemon automatically restart on failure
 
+### Personalization
+- **Custom Name** - Give your robot a unique name on first launch
+- **Personality Traits** - Configure how your robot communicates
+- **Voice Selection** - Choose from ElevenLabs voices
+
 ### Always-On Operation
 - **Systemd Services** - Runs on boot, auto-restarts on crash
 - **Health Monitoring** - `/health` endpoint for status checks
@@ -76,10 +81,11 @@ Reggie is a personal AI assistant that can:
 ## Project Structure
 
 ```
-reggie-homebase/
+reachy-mini-homebase/
 ├── src/                    # React frontend (dashboard)
 │   ├── components/         # UI components
 │   │   ├── camera/        # Camera feed and controls
+│   │   ├── setup/         # First-run setup wizard
 │   │   └── robot/         # Robot motion controls
 │   └── services/          # Frontend services
 ├── server/                 # Express backend
@@ -102,8 +108,8 @@ reggie-homebase/
 
 ```bash
 # Clone and install
-git clone <repo> reggie-homebase
-cd reggie-homebase
+git clone https://github.com/Reachy-Reggie/reachy-mini-homebase.git
+cd reachy-mini-homebase
 npm install
 cd server && npm install
 
@@ -112,7 +118,7 @@ cp server/.env.example server/.env
 # Edit .env with your API keys
 
 # Start services (production)
-sudo systemctl start reggie-server reggie-ngrok
+sudo systemctl start reachy-homebase reachy-ngrok
 
 # Or run in development
 cd server && npm run dev
@@ -124,13 +130,13 @@ See [Quick Start Guide](docs/QUICKSTART.md) for detailed instructions.
 
 ```bash
 # Check status
-systemctl status reggie-server reggie-ngrok
+systemctl status reachy-homebase reachy-ngrok
 
 # View logs
-journalctl -u reggie-server -f
+journalctl -u reachy-homebase -f
 
 # Restart services
-sudo systemctl restart reggie-server reggie-ngrok
+sudo systemctl restart reachy-homebase reachy-ngrok
 ```
 
 See [Services Guide](docs/SERVICES.md) for complete management instructions.
@@ -148,10 +154,19 @@ Key environment variables in `server/.env`:
 | `ANTHROPIC_API_KEY` | Claude AI API key |
 | `WEBHOOK_BASE_URL` | Public URL (ngrok domain) |
 
+## First-Time Setup
+
+When you first access the dashboard, you'll be prompted to:
+1. Give your robot a name
+2. Choose personality traits
+3. Configure your robot's communication style
+
+You can change these anytime in the Settings page.
+
 ## Community
 
-Part of the Reachy Mini robot community.
+Part of the Reachy Mini robot community. Contributions welcome!
 
 ---
 
-*Last updated: December 2024*
+*Built for Reachy Mini robots*

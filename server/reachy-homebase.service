@@ -1,20 +1,23 @@
 [Unit]
-Description=Reggie Twilio Webhook Server
+Description=Reachy Mini Homebase Webhook Server
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-User=reggie
-Group=reggie
-WorkingDirectory=/home/reggie/reggie-homebase/server
+# Replace with your username
+User=YOUR_USERNAME
+Group=YOUR_USERNAME
+# Replace with your installation path
+WorkingDirectory=/home/YOUR_USERNAME/reachy-mini-homebase/server
 
 # Explicit paths since systemd doesn't source .bashrc
-Environment="PATH=/home/reggie/.nvm/versions/node/v22.21.1/bin:/usr/local/bin:/usr/bin:/bin"
+# Update node path based on your nvm installation
+Environment="PATH=/home/YOUR_USERNAME/.nvm/versions/node/v22.21.1/bin:/usr/local/bin:/usr/bin:/bin"
 Environment="NODE_ENV=production"
 
 # Run compiled JavaScript (not tsx dev mode)
-ExecStart=/home/reggie/.nvm/versions/node/v22.21.1/bin/node dist/index.js
+ExecStart=/home/YOUR_USERNAME/.nvm/versions/node/v22.21.1/bin/node dist/index.js
 
 # Restart policy: always restart, but not too aggressively
 Restart=always
@@ -27,7 +30,7 @@ StartLimitBurst=5
 # Logging
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=reggie-server
+SyslogIdentifier=reachy-homebase
 
 [Install]
 WantedBy=multi-user.target

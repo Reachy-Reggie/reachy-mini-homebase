@@ -1,18 +1,20 @@
 [Unit]
-Description=ngrok tunnel for Reggie webhooks
-After=network-online.target reggie-server.service
+Description=ngrok tunnel for Reachy Mini Homebase webhooks
+After=network-online.target reachy-homebase.service
 Wants=network-online.target
-Requires=reggie-server.service
+Requires=reachy-homebase.service
 
 [Service]
 Type=simple
-User=reggie
+# Replace with your username
+User=YOUR_USERNAME
 
 # Wait for server to be actually listening before starting ngrok
 ExecStartPre=/bin/bash -c 'for i in {1..30}; do curl -sf http://localhost:3001/health && exit 0; sleep 1; done; exit 1'
 
 # Start ngrok with static domain
-ExecStart=/snap/bin/ngrok http 3001 --domain=uncontrovertedly-dynastic-imelda.ngrok-free.dev
+# Replace YOUR_NGROK_DOMAIN with your ngrok static domain
+ExecStart=/snap/bin/ngrok http 3001 --domain=YOUR_NGROK_DOMAIN.ngrok-free.dev
 
 # Restart policy
 Restart=always
@@ -25,7 +27,7 @@ StartLimitBurst=5
 # Logging
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=reggie-ngrok
+SyslogIdentifier=reachy-ngrok
 
 [Install]
 WantedBy=multi-user.target
