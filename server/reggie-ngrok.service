@@ -1,0 +1,31 @@
+[Unit]
+Description=ngrok tunnel for Reggie webhooks
+After=network-online.target reggie-server.service
+Wants=network-online.target
+Requires=reggie-server.service
+
+[Service]
+Type=simple
+User=reggie
+
+# Wait for server to be actually listening before starting ngrok
+ExecStartPre=/bin/bash -c 'for i in {1..30}; do curl -sf http://localhost:3001/health && exit 0; sleep 1; done; exit 1'
+
+# Start ngrok with static domain
+ExecStart=/snap/bin/ngrok http 3001 --domain=uncontrovertedly-dynastic-imelda.ngrok-free.dev
+
+# Restart policy
+Restart=always
+RestartSec=10
+
+# Prevent restart loops
+StartLimitIntervalSec=120
+StartLimitBurst=5
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=reggie-ngrok
+
+[Install]
+WantedBy=multi-user.target

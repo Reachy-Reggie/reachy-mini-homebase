@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles - Dark theme */
+body {
+  @apply bg-gray-900 text-gray-100 min-h-screen;
+}
+
+/* Custom component classes */
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-xl font-medium transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-reachy-500 text-white hover:bg-reachy-400 shadow-glow-sm hover:shadow-glow;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-700 text-gray-200 hover:bg-gray-600 border border-gray-600;
+  }
+
+  .card {
+    @apply bg-gray-800/80 rounded-2xl shadow-dark-lg border border-gray-700/50 p-5 backdrop-blur-sm transition-all duration-200 hover:border-gray-600/50;
+  }
+
+  .card-accent {
+    @apply bg-gray-800/80 rounded-2xl shadow-dark-lg border border-reachy-500/30 p-5 backdrop-blur-sm shadow-glow-sm;
+  }
+
+  .input {
+    @apply px-4 py-2.5 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-reachy-500/50 focus:border-reachy-500 transition-all duration-200;
+  }
+
+  /* Status badges */
+  .badge-success {
+    @apply bg-reachy-500/20 text-reachy-400 px-2 py-1 rounded-lg text-sm font-medium;
+  }
+
+  .badge-error {
+    @apply bg-red-500/20 text-red-400 px-2 py-1 rounded-lg text-sm font-medium;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded-lg text-sm font-medium;
+  }
+
+  /* Alert banners */
+  .alert-error {
+    @apply bg-red-900/30 border border-red-500/50 rounded-xl p-4 text-red-300;
+  }
+
+  .alert-info {
+    @apply bg-blue-900/30 border border-blue-500/50 rounded-xl p-4 text-blue-300;
+  }
+
+  .alert-success {
+    @apply bg-reachy-500/10 border border-reachy-500/30 rounded-xl p-4 text-reachy-300;
+  }
+}

@@ -1,0 +1,33 @@
+[Unit]
+Description=Reggie Twilio Webhook Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=reggie
+Group=reggie
+WorkingDirectory=/home/reggie/reggie-homebase/server
+
+# Explicit paths since systemd doesn't source .bashrc
+Environment="PATH=/home/reggie/.nvm/versions/node/v22.21.1/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="NODE_ENV=production"
+
+# Run compiled JavaScript (not tsx dev mode)
+ExecStart=/home/reggie/.nvm/versions/node/v22.21.1/bin/node dist/index.js
+
+# Restart policy: always restart, but not too aggressively
+Restart=always
+RestartSec=5
+
+# Prevent restart loops: max 5 restarts in 60 seconds
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=reggie-server
+
+[Install]
+WantedBy=multi-user.target
